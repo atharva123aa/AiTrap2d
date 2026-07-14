@@ -1,2 +1,11 @@
 Screen {background:#0b0616; color:#d6b3ff;
 border:tall #7b2cff; padding:1 3;}
+
+
+
+/*dark 4 36 */
+App.theme-dark Screen {
+    background:#111111;
+    color:#e0e0e0;
+    border:tall #666666;
+    padding:2 4;}
