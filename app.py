@@ -4,6 +4,7 @@ import asyncio
 import time as t
 from textual.widgets import Static, Input, RichLog
 from textual.containers import Horizontal as h
+import random as r
 
 
     #will try this thing 1st time sorry for error if present
@@ -103,7 +104,11 @@ class Aitrap2d(app):
         mins=secs// 60
         secs=secs%60
         return f"{mins}m {secs}s"#terminal.write(f"time took:{self.get_time()}")    gotta use it at end
-    
+    def make_code(self):
+        parts=["AIRL","SYS","DEV","ROOT","CORE"]
+        nums=r.randint(1000,9998)
+        word=r.choice(parts)
+        return f"{word}-{nums}-P3"
     def on_input_submitted(self,event):
         terminal=self.query_one("#history",RichLog)
         cmd=event.value.strip().lower()
@@ -114,7 +119,7 @@ class Aitrap2d(app):
         elif cmd=="bug" and self.c_level==1:
             terminal.write("[AIRL]: OH A DEV .PROVE IT FAILURE \n \nfor i in rang(10):\n what is wrong here? type fix <word> \n")
         elif  cmd.startswith("fix")and self.c_level==1:
-            arg=cmd.split("",1)[1] if " " in cmd else None
+            arg=cmd.split(" ",1)[1] if " " in cmd else None
             if arg is None :
                 terminal.write("write somethg \n")
             elif arg!="range":
@@ -123,8 +128,8 @@ class Aitrap2d(app):
                 terminal.write("[access level 1 opened]\n but that maybe a guess still\n you are not a dev hehe\n")
         elif cmd=="perms" and self.c_level == 2:
             terminal.write("[Airl]:hunh! root, look at this \n\n\ncore.cfg rwrwrw7r0x0\n\nway too open for a sys file\n type fix <number> to lock it num is in the decrypt\n")
-        elif cmd.startswith("fix") and self.c_level ==2:
-            arg=cmd.split("",1)[1] if " " in cmd else None
+        elif cmd.startswith("fix") and self.c_level ==1:
+            arg=cmd.split(" ",1)[1] if " " in cmd else None
             if arg is None:
                  terminal.write("i want a number\n")
             elif arg!="700":
@@ -169,13 +174,31 @@ class Aitrap2d(app):
                 terminal.write("[[351001010 CORE STABILISED]]\n\n[AIRL]: Level 5 will cook you\n")
                 self.h_used=0
                 self.c_level=5
-            #todo other levels after commiting 
-              
-
-             
-
-
-
+        elif cmd=="riddle" and self.c_level== 5:
+            terminal.write("[airl]:answer this or stay lock up \n\nI  have key but no locks\n space but no room \nyou can enter but can't go outside\nWHAT AM I IS?\n\ntype ans <word>\n")
+        elif  cmd.startswith("answer")and self.c_level==5:
+            arg=cmd.split("",1)[1] if " " in cmd else None
+            if arg is None:
+                terminal.write("write the riddle answer dont get riddled")
+            elif arg!= "keyboard":
+                terminal.write("[AIRL]:GO SOLVE PLUS MINUS HEHEHE{:")
+            else:
+                terminal.write("[airl]:.....cor..rect\n \n3 option detected\n\n1- wait for part 3\n 2-finish and see ending \n 3-shutdown \n")
+                self.c_level=6
+        
+#not really end ok i will add more its just a way so the game is playable
+        elif self.c_level==6 and cmd in ("1","wait for part 3"):
+            terminal.write("connection will be active \nyou will see more in part 3\n ")
+            terminal.write(f"\n[[PART 3 CODE]]\nyourcode: {self.make_code()}\n keep safe helps in part 3")
+            terminal.write(f"time taken:{self.get_time()}")
+        elif self.c_level==6 and cmd in ("2", "finish and see ending"):
+            terminal.write("AIRL WAS CHANGED YOU GOT TERMINATED MAYBE\n START AGAIN IN PART 3!!!\n")
+            terminal.write(f"\n[[part 3 code]]\n your code:{self.make_code()}\n keep it safe its a second chance\n")
+            terminal.write(f"time taken:{self.get_time()}")
+        elif self.c_level==6 and cmd in ("3","shutdown"):
+            terminal.write("sys.collapsed no part 3 for you!:}\n")
+            terminal.write(f"\n[[PART 3 CODE]]\n your code:{self.make_code()}\n even in collapse somethg is there\n")
+            terminal.write(f"time taken:{self.get_time()}")
        
         elif cmd=="creepy":
             if self.has_class("-theme-dark"):
