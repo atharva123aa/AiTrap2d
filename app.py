@@ -5,6 +5,13 @@ import time as t
 from textual.widgets import Static, Input, RichLog
 from textual.containers import Horizontal as h
 import random as r
+import os
+def resource_path(filename):
+    if hasattr(sys,"_MEIPASS"):
+        return os.path.join(sys._MEIPASS,filename)
+    return filename # tbh stack overflow
+    
+    
 
 
     #will try this thing 1st time sorry for error if present
@@ -36,7 +43,7 @@ route_levels ={
     "SYS":5,
 }
 class Aitrap2d(app):
-    CSS_PATH ="style.css"
+    CSS_PATH =resource_path("style.css")
     ENABLE_COMMAND_PALETTE= False
     DEFAULT_CSS=""
     BINDINGS=[("ctrl+c","quit","Quit")]
