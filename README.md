@@ -25,7 +25,7 @@ NOT SPECIFICALLY JUST A SEQUEL SO I ALREADY AM GOOD IN TEXTUAL AND PYTHON
 
 ## VIDEO TUTORIAL(PLEASE WATCH IF YOU R A REVIEWER)
 
-[![GAME-HOW TO PLAY](d2.png)(https://youtu.be/he-LCbelrVA)
+[![GAME-HOW TO PLAY](d2.png)](https://youtu.be/he-LCbelrVA)
 
 ## running
 
