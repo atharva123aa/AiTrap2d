@@ -1,4 +1,4 @@
-from textual.app import App as app
+rom textual.app import App as app
 import sys
 import asyncio
 import time as t
@@ -42,8 +42,8 @@ class Aitrap2d(app):
     BINDINGS=[("ctrl+c","quit","Quit")]
     def compose(self):
        yield RichLog(id="history", markup=False)
-       with h():
-           yield Static(">")
+       with h(id="input"):
+           yield Static(">", id="prompt")
            yield Input(placeholder= "ENTER CMD..", id="cmd")
     def action_quit(self):
         self.exit()
@@ -115,10 +115,34 @@ class Aitrap2d(app):
         terminal.write(f"> {cmd}  ")
         if cmd=="help":
             terminal.write("Commands help,creepy ,leave")
-        
+        elif cmd=="clear":
+            terminal.clear()
+            self.query_one("#cmd",Input).value=""
+            self.query_one("#cmd",Input).focus()
+            return
+        elif cmd=="free codes":
+            print("get outta here") 
+        elif cmd=="coolcream":
+            print("coolkereaammmm")   
+        elif cmd=="end":
+            print("[airl]:dont end me ;} ,,,,. hehehe i will never end")
+        elif cmd=="67":
+            print("67 on a merry christmas")
+        elif cmd=="how to play":
+            terminal.write("better explore and get it")
+
         elif cmd=="bug" and self.c_level==1:
             terminal.write("[AIRL]: OH A DEV .PROVE IT FAILURE \n \nfor i in rang(10):\n what is wrong here? type fix <word> \n")
-        elif  cmd.startswith("fix")and self.c_level==1:
+        elif cmd=="hint" and self.c_level==1:
+            if self.h_used==0:
+                terminal.write("[airl]: maybe a typo\n")
+                self.h_used=1
+            elif self.h_used==1:
+                 terminal.write("[AIRL]:A BUILTIN IDIOT\n")
+                 self.h_used=2
+            else:
+                 terminal.write("no hint idiot\n")
+        elif cmd.startswith("fix")and self.c_level==1:
             arg=cmd.split(" ",1)[1] if " " in cmd else None
             if arg is None :
                 terminal.write("write somethg \n")
@@ -126,9 +150,25 @@ class Aitrap2d(app):
                 terminal.write("hunh are you a dev even ?")
             else:
                 terminal.write("[access level 1 opened]\n but that maybe a guess still\n you are not a dev hehe\n")
+                self.h_used=0
+                self.c_level=2
         elif cmd=="perms" and self.c_level == 2:
             terminal.write("[Airl]:hunh! root, look at this \n\n\ncore.cfg rwrwrw7r0x0\n\nway too open for a sys file\n type fix <number> to lock it num is in the decrypt\n")
-        elif cmd.startswith("fix") and self.c_level ==1:
+            self.h_used=0
+            self.c_level=2
+      
+        elif cmd=="hint" and self.c_level==2:
+            if self.h_used ==0:
+                 terminal.write("[airl]:owner should keep full acess no one else\n")
+                 self.h_used=1
+            elif self.h_used==1:
+                 terminal.write("maybe 7 comes here\n")
+                 self.h_used=2
+            else:
+                 terminal.write("00 just it no more help hhehehe")
+
+                
+        elif cmd.startswith("fix") and self.c_level ==2:
             arg=cmd.split(" ",1)[1] if " " in cmd else None
             if arg is None:
                  terminal.write("i want a number\n")
@@ -141,8 +181,14 @@ class Aitrap2d(app):
         elif cmd=="sync" and self.c_level==3:
              
             terminal.write("[airl]:i remember smthg abt you engineer.. but memory's fragmented\n\nhehe now complete it:\n2,4,8,16,?\n\n type answer:\n")
+        elif cmd=="hint" and self.c_level==3:
+            if self.h_used==0:
+                 terminal.write("each is power of 2 and dont type hint now engineer;AIRL:\n ")
+                 self.h_used=1
+            else:
+                terminal.write("dont you heard what i say!")
         elif cmd.startswith("answer") and self.c_level==3:
-            arg=cmd.split("",1)[1] if " "  in cmd  else None
+            arg=cmd.split(" ",1)[1] if " "  in cmd  else None
             if arg is None:
                  terminal.write("write the ans. \n")
             elif arg!="32":
@@ -151,6 +197,15 @@ class Aitrap2d(app):
                 terminal.write("[AIRL]:NOT GONNA LEAVE YOU EASILY ONE MORE :\n 1,1,2,3,5,?\n\ntype ans.<number>\n")
                 self.h_used=0
                 self.c_level=3.5
+        elif cmd=="hint" and self.c_level== 3.5:
+            if self.h_used==0:
+                terminal.write("[AIRL]:FIBONACCI! GO RESEARCH \n")
+                self.h_used=1
+            elif self.h_used==1:
+                terminal.write("[airl]:lazy each num is sume of the two previously\n")
+                self.h_used=2
+            else:
+                 terminal.write("even god not gonna help you up bruh!\n")
         elif cmd.startswith("answer") and self.c_level==3.5:
             arg=cmd.split(" ",1)[1]if " " in cmd else None
             if arg is None:
@@ -164,6 +219,15 @@ class Aitrap2d(app):
         elif cmd=="log" and self.c_level==4:
 
             terminal.write("[AIRL]:CORE FRAGMENT DETECT \n\n01000011 0001111 00101010 decode num to letter- 315195  0100001101 \n\nuse decode letter only<word>\n")
+        elif cmd=="hint" and self.c_level==4:
+            if self.h_used==0:
+                 terminal.write("each group of 8 digit is one letter\n ")
+                 self.h_used=1
+            elif self.h_used==1:
+                 terminal.write("[airl]it is very related to your topic shame on you\n")
+                 self.h_used=2
+            else:
+                 terminal.write("bruh it comes before the word fragment\n")
         elif cmd.startswith("decode") and self.c_level==4:
             arg=cmd.split(" ",1)[1] if " " in cmd else None
             if arg is None:
@@ -176,8 +240,14 @@ class Aitrap2d(app):
                 self.c_level=5
         elif cmd=="riddle" and self.c_level== 5:
             terminal.write("[airl]:answer this or stay lock up \n\nI  have key but no locks\n space but no room \nyou can enter but can't go outside\nWHAT AM I IS?\n\ntype ans <word>\n")
+        elif cmd=="hint" and self.c_level==5:
+            if self.h_used==0:
+                terminal.write("[AIRL]:YOU ARE TOUCHING AND LOOKING AT THIS ONE BRO !!")
+                self.h_used=1
+            else:
+                 terminal.write("[freakened airl]:rly cant say more leave me")
         elif  cmd.startswith("answer")and self.c_level==5:
-            arg=cmd.split("",1)[1] if " " in cmd else None
+            arg=cmd.split(" ",1)[1] if " " in cmd else None
             if arg is None:
                 terminal.write("write the riddle answer dont get riddled")
             elif arg!= "keyboard":
@@ -201,20 +271,18 @@ class Aitrap2d(app):
             terminal.write(f"time taken:{self.get_time()}")
        
         elif cmd=="creepy":
-            if self.has_class("-theme-dark"):
-                self.remove_class("-theme-dark")
+            if self.has_class("theme-dark"):
+                self.remove_class("theme-dark")
                 terminal.write("Theme restored sucess.")
             else:
-                self.add_class("-theme-dark")
+                self.add_class("theme-dark")
                 terminal.write("DARK MODE ENABLED")
         elif cmd=="leave":
             self.exit()
         else:
             terminal.write("type help ")# was trying to scare user by changing theme ehehe but i did not do that
         self.query_one("#cmd",Input ).value =""
-        self.query_one("#cmd",Input).focus()
-
-        
+        self.query_one("#cmd",Input).focus()    
 if __name__=="__main__":
     Aitrap2d().run()
 
