@@ -1,4 +1,4 @@
-rom textual.app import App as app
+from textual.app import App as app
 import sys
 import asyncio
 import time as t
